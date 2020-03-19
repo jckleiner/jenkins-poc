@@ -1,36 +1,21 @@
-
-def scmUrl = 'https://github.com/jckleiner/jenkins-poc.git'
-
 pipeline {
     agent any
-    tools {
-        maven 'Maven 3.5.3'
-        jdk 'JDK-11.0.1 (OpenJDK)'
-    }
+
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'mvn clean install --fail-at-end'
-                // Only needed for adesso Jenkins
-                stash name:'build', useDefaultExcludes: false
-            }
-            post {
-                success {
-                    junit '**/target/surefire-reports/**/*.xml'
-                }
-                unstable {
-                    script{
-                           error "Build contained failed tests"
-                    }
-                }
+                echo '-->Building..'
             }
         }
-/*
-        stage('Sonar analysis') {
+        stage('Test') {
             steps {
-                sh 'mvn sonar:sonar'
+                echo '-->Testing..'
             }
         }
-*/
+        stage('Deploy') {
+            steps {
+                echo '-->Deploying....'
+            }
+        }
     }
 }
