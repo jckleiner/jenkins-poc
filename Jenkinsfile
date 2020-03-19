@@ -3,8 +3,9 @@ def scmUrl = 'https://github.com/jckleiner/jenkins-poc.git'
 
 pipeline {
     agent any
-    tools {
-        maven 'apache-maven-3.0.1' 
+    tools { 
+        maven 'Maven 3.6.3' 
+        jdk 'java 8' 
     }
     stages {
         stage('Build') {
